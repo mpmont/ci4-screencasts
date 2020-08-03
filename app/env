@@ -20,7 +20,7 @@
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+#app.baseURL = 'http://ci4.local'
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'

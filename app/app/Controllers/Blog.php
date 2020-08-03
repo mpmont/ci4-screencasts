@@ -1,24 +1,51 @@
 <?php namespace App\Controllers;
 
+use App\Models\ArticleModel;
+
 class Blog extends BaseController
 {
+
+    protected $helpers = ['form'];
+
     public function index()
     {
-        echo $this->owner;
-        echo '<hr>';
-        echo 'Display all my articles!';
+        $article = new ArticleModel();
+        $data['articles'] = $article->findAll();
+        return view('blog/index', $data);
     }
 
-    public function detail($articleSlug)
+    public function create()
     {
-        echo 'This is my article called ' . $articleSlug;
+        if ($_POST) {
+            $article = new ArticleModel();
+            if ($article->insert($this->request->getPost())) {
+                return redirect()->to('/blog/index');
+            } else {
+                dd($article->errors());
+            }
+        }
+        return view('blog/create');
     }
 
-    public function sum($value = 0, $plusValue = 0, $wtv = null)
+    public function update($id = null)
     {
-        echo $value + $plusValue;
-        echo '<hr>';
-        echo $wtv;
+        $article = new ArticleModel();
+        if ($_POST) {
+            if ($article->update($id, $this->request->getPost())) {
+                return redirect()->to('/blog/index');
+            } else {
+                dd($article->errors());
+            }
+        }
+        $data['article'] = $article->find($id);
+        return view('blog/update', $data);
+    }
+
+    public function delete($id = null)
+    {
+        $article = new ArticleModel();
+        $article->delete($id);
+        return redirect()->to('/blog/index');
     }
 
 }

@@ -1,6 +1,6 @@
 version: '3'
 services:
-    estacoesweb:
+    ci4-web:
         build:
             context: ./php
         ports:
@@ -9,7 +9,7 @@ services:
             - ../app:/var/www/html/app/
         links:
             - 'mysql'
-        container_name: ci4-apache
+        container_name: ci4-web
     mysql:
         container_name: ci4-database
         image: mysql:8.0.19
