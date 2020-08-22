@@ -18,7 +18,7 @@ class Blog extends BaseController
     {
         if ($_POST) {
             $article = new ArticleModel();
-            if ($article->insert($this->request->getPost())) {
+            if ($article->skipValidation(true)->insert($this->request->getPost())) {
                 return redirect()->to('/blog/index');
             } else {
                 dd($article->errors());
