@@ -31,4 +31,40 @@ class ArticleModel extends Model
     ];
 
     protected $skipValidation = false;
+
+    protected $afterFind = ['fullText', 'setNewProperty'];
+    protected $beforeUpdate = ['addFoo'];
+    protected $afterUpdate = [];
+    protected $beforeDelete = [];
+    protected $afterDelete = [];
+
+    public function search($searchTerm)
+    {
+        $this->like('title', $searchTerm);
+        return $this;
+    }
+
+    protected function fullText($article)
+    {
+        if (!empty($article['data'])) {
+            $article['data']->fullText = $article['data']->intro . ' ' . $article['data']->content;
+        }
+        return $article;
+    }
+
+    protected function setNewProperty($article)
+    {
+        if (!empty($article['data'])) {
+            $article['data']->fooo = 'bar';
+        }
+        return $article;
+    }
+
+    protected function addFoo($article)
+    {
+        $article['data']['intro'] = $article['data']['intro'] . '5000';
+        dd($article);
+        return $article;
+    }
+
 }

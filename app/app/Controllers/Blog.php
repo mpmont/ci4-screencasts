@@ -10,8 +10,9 @@ class Blog extends BaseController
     public function index()
     {
         $article = new ArticleModel();
-        $data['articles'] = $article->findAll();
-        return view('blog/index', $data);
+        $data['articles'] = $article->search('foo')->first();
+        //$data['articles'] = $article->first();
+        //return view('blog/index', $data);
     }
 
     public function create()
