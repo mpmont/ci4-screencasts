@@ -4,7 +4,8 @@ class Home extends BaseController
 {
     public function index()
     {
-        $data['content'] = 'FROM index Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam provident ullam suscipit cum, cupiditate assumenda optio blanditiis asperiores, molestias reiciendis qui cumque, alias nesciunt eveniet quae impedit harum earum. Assumenda!';
+        echo $this->session->getFlashdata('message');
+        $data['content'] = 'Hello There ' . $this->session->get('username');
         return view('yield', $data);
     }
 
